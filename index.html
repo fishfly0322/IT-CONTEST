@@ -146,7 +146,7 @@
 </div>
 
 <script>
-    const SECRET_KEY = "YWRtaW44ODg="; // admin888
+    const SECRET_KEY = "YWRtaW44ODg=";
     const MAX_LIMIT = 35;
     const events = ["中文文章輸入", "英文文章輸入", "電腦簡報設計", "專題寫作", "電腦程式設計", "電繪海報設計"];
     const allClasses = ["701", "702", "703", "801", "802", "803", "101", "102", "111", "112"]; 
@@ -170,7 +170,12 @@
     }
 
     // --- 報名邏輯 ---
-    document.getElementById('registrationForm').addEventListener('submit', (e) => {
+    // --- 雲端同步設定 ---
+    // 請在這裡貼上你的 Google Apps Script 網頁應用程式網址
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbw_gE3ED4tpQP9Fjd_rCFvn_OkZoDpJFuYJH-FQCg1Cj_n_e65Nnjl9pjZp_mrnOQ9O/exec"; 
+
+    // --- 報名邏輯 (已升級雲端同步版) ---
+    document.getElementById('registrationForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const event = document.getElementById('eventInput').value;
         const currentCount = registrations.filter(r => r.event === event).length;
@@ -180,19 +185,42 @@
             return;
         }
 
-        const newEntry = {
-            id: Date.now(),
+        const formData = {
             className: document.getElementById('classInput').value,
             seat: document.getElementById('seatInput').value,
             name: document.getElementById('nameInput').value,
             event: event
         };
 
-        registrations.push(newEntry);
-        localStorage.setItem('registrations', JSON.stringify(registrations));
-        alert(`✅ 報名成功！\n${newEntry.name} 同學已完成 ${event} 比賽登記。`);
-        e.target.reset();
-        updateDashboard();
+        // 按鈕動畫回饋
+        const btn = e.target.querySelector('button');
+        const originalText = btn.innerText;
+        btn.innerText = "🚀 雲端傳送中...";
+        btn.disabled = true;
+
+        try {
+            // 發送資料到 Google 試算表
+            await fetch(GAS_URL, {
+                method: "POST",
+                mode: "no-cors", 
+                body: JSON.stringify(formData)
+            });
+
+            // 同步存到本地 (讓管理後台能即時看到)
+            const newEntry = { ...formData, id: Date.now() };
+            registrations.push(newEntry);
+            localStorage.setItem('registrations', JSON.stringify(registrations));
+            
+            alert(`✅ 報名成功！\n資料已成功備份至雲端試算表。`);
+            e.target.reset();
+            updateDashboard();
+        } catch (error) {
+            console.error(error);
+            alert("❌ 雲端同步失敗，請檢查網路連線。");
+        } finally {
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
     });
 
     // --- 更新數據看板 ---
