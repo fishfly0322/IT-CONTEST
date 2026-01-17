@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>114學年度大同高中資訊比賽報名系統</title>
+    <title>114學年度 校內資訊比賽報名系統</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -15,7 +15,6 @@
         .bg-circle { position: fixed; border-radius: 50%; background: rgba(255, 255, 255, 0.1); z-index: -1; }
         .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
         .rule-card { border-left: 4px solid #4f46e5; transition: 0.3s; }
-        .rule-card:hover { background-color: #f5f3ff; }
         .admin-login-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; }
     </style>
 </head>
@@ -38,26 +37,15 @@
                     <div class="rule-card p-4 bg-indigo-50/50 rounded-r-xl">
                         <h3 class="font-bold text-indigo-700 text-base mb-1">⌨️ 中英文文章輸入</h3>
                         <p>• 7-8、10-11年級：每班至少1人。</p>
-                        <p>• 國際/雙語班：報名英文輸入，每班至少2人。</p>
+                        <p>• 雙語/國際班：報名英文輸入，每班至少2人。</p>
                     </div>
                     <div class="rule-card p-4 bg-indigo-50/50 rounded-r-xl">
                         <h3 class="font-bold text-indigo-700 text-base mb-1">📊 電腦簡報設計</h3>
-                        <p>• 每班至少1人。需於 <span class="text-red-500 font-bold underline">5/22(五)</span> 前上傳 pptx 檔。</p>
-                    </div>
-                    <div class="rule-card p-4 bg-indigo-50/50 rounded-r-xl">
-                        <h3 class="font-bold text-indigo-700 text-base mb-1">📝 電腦專題寫作</h3>
-                        <p>• 每班至少1人。Word 轉 <strong>PDF</strong> 後上傳。</p>
+                        <p>• 需於 5/22(五) 前上傳。檔案格式：pptx。</p>
                     </div>
                     <div class="rule-card p-4 bg-indigo-50/50 rounded-r-xl">
                         <h3 class="font-bold text-indigo-700 text-base mb-1">💻 電腦程式設計</h3>
-                        <p>• 國中(Scratch)：1-2 人。高中：至多 2 人。</p>
-                    </div>
-                    <div class="rule-card p-4 bg-indigo-50/50 rounded-r-xl">
-                        <h3 class="font-bold text-indigo-700 text-base mb-1">🎨 電繪海報設計</h3>
-                        <p>• 美術班：以班級為單位參加。</p>
-                    </div>
-                    <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200 text-xs text-yellow-800 leading-relaxed italic">
-                        ＊9、12年級及體育班學生採自由報名方式。
+                        <p>• 國中：Scratch。高中：不限語言。每班至多 2 人。</p>
                     </div>
                 </div>
             </div>
@@ -69,38 +57,39 @@
                 <form id="registrationForm" class="space-y-6">
                     <div class="grid grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-bold text-gray-600 mb-2">班級 (如: 101)</label>
-                            <input type="text" id="classInput" required class="w-full px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-indigo-500 focus:ring-0 transition outline-none" placeholder="請輸入班級">
+                            <label class="block text-sm font-bold text-gray-600 mb-2">選擇班級</label>
+                            <select id="classInput" required class="w-full px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-indigo-500 transition outline-none bg-white">
+                                <option value="" disabled selected>請選擇班級</option>
+                            </select>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-600 mb-2">座號</label>
-                            <input type="number" id="seatInput" required class="w-full px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-indigo-500 focus:ring-0 transition outline-none" placeholder="1-50">
+                            <input type="number" id="seatInput" min="1" max="60" required class="w-full px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-indigo-500 outline-none" placeholder="1-60">
                         </div>
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-600 mb-2">學生姓名</label>
-                        <input type="text" id="nameInput" required class="w-full px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-indigo-500 focus:ring-0 transition outline-none" placeholder="請輸入真實姓名">
+                        <input type="text" id="nameInput" required class="w-full px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-indigo-500 outline-none" placeholder="請輸入全名">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-600 mb-2">報名比賽項目</label>
-                        <select id="eventInput" class="w-full px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-indigo-500 focus:ring-0 transition outline-none bg-white">
+                        <select id="eventInput" required class="w-full px-4 py-3 border-2 border-gray-100 rounded-xl focus:border-indigo-500 transition outline-none bg-white">
+                            <option value="" disabled selected>請選擇比賽項目</option>
                             <option value="中文文章輸入">中文文章輸入</option>
                             <option value="英文文章輸入">英文文章輸入</option>
-                            <option value="電腦簡報設計">電腦簡報設計 (4/25截止)</option>
-                            <option value="專題寫作">專題寫作 (4/25截止)</option>
+                            <option value="電腦簡報設計">電腦簡報設計</option>
+                            <option value="專題寫作">電腦專題寫作</option>
                             <option value="電腦程式設計">電腦程式設計</option>
                             <option value="電繪海報設計">電繪海報設計</option>
                         </select>
                     </div>
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl shadow-xl transform transition hover:-translate-y-1 active:scale-95 text-lg">
+                    <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl shadow-xl transition active:scale-95 text-lg">
                         確認並提交報名
                     </button>
                 </form>
                 
                 <div class="mt-8 text-center border-t pt-4">
-                    <button onclick="showLoginBox()" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-full text-xs font-medium text-gray-400 hover:text-indigo-600 hover:border-indigo-600 transition">
-                        <span class="mr-1">⚙️</span> 管理員維護入口
-                    </button>
+                    <button onclick="showLoginBox()" class="text-xs text-gray-400 hover:text-indigo-600 transition">⚙️ 管理員入口</button>
                 </div>
             </div>
         </div>
@@ -108,80 +97,64 @@
 
     <div id="loginBox" class="admin-login-box glass p-6 rounded-2xl shadow-2xl w-80 text-center">
         <h3 class="font-bold text-gray-800 mb-4">管理員驗證</h3>
-        <input type="password" id="pwField" placeholder="請輸入密碼" class="w-full px-4 py-2 border rounded-lg mb-4 text-center outline-none focus:ring-2 focus:ring-indigo-500">
+        <input type="password" id="pwField" placeholder="密碼" class="w-full px-4 py-2 border rounded-lg mb-4 text-center">
         <div class="flex gap-2">
-            <button onclick="hideLoginBox()" class="flex-1 px-4 py-2 bg-gray-200 rounded-lg text-sm">取消</button>
+            <button onclick="hideLoginBox()" class="flex-1 px-4 py-2 bg-gray-200 rounded-lg text-sm font-bold">取消</button>
             <button onclick="checkPassword()" class="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold">登入</button>
         </div>
     </div>
 
     <div id="adminSection" class="hidden mt-12 glass p-10 rounded-3xl shadow-2xl border-2 border-indigo-200">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-            <h2 class="text-3xl font-bold text-gray-800 flex items-center">📊 賽事管理中心 <span class="ml-3 text-sm font-normal bg-indigo-100 text-indigo-600 px-2 py-1 rounded">管理員已登入</span></h2>
-            <button onclick="exportToCSV()" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-2xl font-bold shadow-lg transition flex items-center">
-                <span class="mr-2">📥</span> 匯出 Excel 清單
-            </button>
-        </div>
-
+        <h2 class="text-3xl font-bold text-gray-800 mb-10">📊 賽事管理中心</h2>
         <div id="eventStatsBody" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"></div>
-
-        <div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm">
+        <div class="overflow-x-auto rounded-2xl border bg-white shadow-sm">
             <table class="w-full text-left">
                 <thead class="bg-gray-800 text-white">
-                    <tr>
-                        <th class="px-6 py-4">班級</th><th class="px-6 py-4">座號</th><th class="px-6 py-4">姓名</th><th class="px-6 py-4">報名項目</th><th class="px-6 py-4">操作</th>
-                    </tr>
+                    <tr><th class="px-6 py-4">班級</th><th class="px-6 py-4">座號</th><th class="px-6 py-4">姓名</th><th class="px-6 py-4">項目</th><th class="px-6 py-4">操作</th></tr>
                 </thead>
                 <tbody id="detailListBody" class="divide-y divide-gray-100 bg-white"></tbody>
             </table>
         </div>
-        <div class="mt-10 flex justify-between items-end border-t pt-6">
-            <button onclick="clearData()" class="text-red-300 hover:text-red-600 text-xs transition">⚠️ 清空所有報名資料</button>
-            <div class="text-right">
-                <p class="text-xs text-gray-400 mb-1">未報名班級清單</p>
-                <p id="unregisteredClasses" class="text-sm text-gray-600 max-w-md"></p>
-            </div>
+        <div class="mt-8">
+            <button onclick="exportToCSV()" class="bg-green-600 text-white px-6 py-2 rounded-lg font-bold mr-4">匯出 Excel</button>
+            <button onclick="clearData()" class="text-red-400 text-xs">清空資料</button>
         </div>
     </div>
 </div>
 
 <script>
-    const SECRET_KEY = "YWRtaW44ODg=";
+    // --- 基礎設定 ---
+    const SECRET_KEY = "YWRtaW44ODg="; // admin888
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbw_gE3ED4tpQP9Fjd_rCFvn_OkZoDpJFuYJH-FQCg1Cj_n_e65Nnjl9pjZp_mrnOQ9O/exec"; 
     const MAX_LIMIT = 35;
     const events = ["中文文章輸入", "英文文章輸入", "電腦簡報設計", "專題寫作", "電腦程式設計", "電繪海報設計"];
-    const allClasses = ["701", "702", "703", "801", "802", "803", "101", "102", "111", "112"]; 
+    
+    // --- 班級清單邏輯 (修正版) ---
+    const allClasses = [];
+    // 7-9 年級各 10 班
+    for (let g = 7; g <= 9; g++) { for (let r = 1; r <= 10; r++) allClasses.push(`${g}-${r}`); }
+    // 10-12 年級各 7 班
+    for (let g = 10; g <= 12; g++) { for (let r = 1; r <= 7; r++) allClasses.push(`${g}-${r}`); }
+
+    // 初始化班級下拉選單
+    const classSelect = document.getElementById('classInput');
+    allClasses.forEach(cls => {
+        const opt = document.createElement('option');
+        opt.value = cls;
+        opt.innerText = cls + " 班";
+        classSelect.appendChild(opt);
+    });
 
     let registrations = JSON.parse(localStorage.getItem('registrations')) || [];
 
-    // --- 登入控制 ---
-    function showLoginBox() { document.getElementById('loginBox').style.display = 'block'; document.getElementById('pwField').focus(); }
-    function hideLoginBox() { document.getElementById('loginBox').style.display = 'none'; document.getElementById('pwField').value = ''; }
-    
-    function checkPassword() {
-        const input = document.getElementById('pwField').value;
-        if (btoa(input) === SECRET_KEY) {
-            hideLoginBox();
-            document.getElementById('adminSection').classList.remove('hidden');
-            updateDashboard();
-            window.scrollTo({ top: document.getElementById('adminSection').offsetTop - 50, behavior: 'smooth' });
-        } else {
-            alert("密碼不正確！");
-        }
-    }
-
-    // --- 報名邏輯 ---
-    // --- 雲端同步設定 ---
-    // 請在這裡貼上你的 Google Apps Script 網頁應用程式網址
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbw_gE3ED4tpQP9Fjd_rCFvn_OkZoDpJFuYJH-FQCg1Cj_n_e65Nnjl9pjZp_mrnOQ9O/exec"; 
-
-    // --- 報名邏輯 (已升級雲端同步版) ---
+    // --- 報名提交 ---
     document.getElementById('registrationForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const event = document.getElementById('eventInput').value;
         const currentCount = registrations.filter(r => r.event === event).length;
         
         if (currentCount >= MAX_LIMIT) {
-            alert(`⚠️ 抱歉，【${event}】名額已滿 35 人，請考慮報名其他項目。`);
+            alert(`⚠️ 【${event}】名額已滿！`);
             return;
         }
 
@@ -192,77 +165,57 @@
             event: event
         };
 
-        // 按鈕動畫回饋
-        const btn = e.target.querySelector('button');
-        const originalText = btn.innerText;
-        btn.innerText = "🚀 雲端傳送中...";
+        const btn = document.getElementById('submitBtn');
+        btn.innerText = "🚀 雲端同步中...";
         btn.disabled = true;
 
         try {
-            // 發送資料到 Google 試算表
-            await fetch(GAS_URL, {
-                method: "POST",
-                mode: "no-cors", 
-                body: JSON.stringify(formData)
-            });
-
-            // 同步存到本地 (讓管理後台能即時看到)
-            const newEntry = { ...formData, id: Date.now() };
-            registrations.push(newEntry);
-            localStorage.setItem('registrations', JSON.stringify(registrations));
+            // 發送到 Google 試算表
+            await fetch(GAS_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(formData) });
             
-            alert(`✅ 報名成功！\n資料已成功備份至雲端試算表。`);
+            registrations.push({ ...formData, id: Date.now() });
+            localStorage.setItem('registrations', JSON.stringify(registrations));
+            alert("✅ 報名成功！");
             e.target.reset();
             updateDashboard();
-        } catch (error) {
-            console.error(error);
-            alert("❌ 雲端同步失敗，請檢查網路連線。");
+        } catch (err) {
+            alert("❌ 傳送失敗，請確認網路或 GAS 網址。");
         } finally {
-            btn.innerText = originalText;
+            btn.innerText = "確認並提交報名";
             btn.disabled = false;
         }
     });
 
-    // --- 更新數據看板 ---
+    // --- 管理功能 ---
+    function showLoginBox() { document.getElementById('loginBox').style.display = 'block'; }
+    function hideLoginBox() { document.getElementById('loginBox').style.display = 'none'; }
+    function checkPassword() {
+        if (btoa(document.getElementById('pwField').value) === SECRET_KEY) {
+            hideLoginBox();
+            document.getElementById('adminSection').classList.remove('hidden');
+            updateDashboard();
+        } else { alert("密碼錯誤！"); }
+    }
+
     function updateDashboard() {
         const detailBody = document.getElementById('detailListBody');
         const eventStatsBody = document.getElementById('eventStatsBody');
 
-        detailBody.innerHTML = registrations.sort((a,b) => a.className.localeCompare(b.className))
-            .map(r => `
-                <tr class="hover:bg-indigo-50/50 transition">
-                    <td class="px-6 py-4 font-bold text-indigo-900">${r.className}</td>
-                    <td class="px-6 py-4 text-gray-500">${r.seat}</td>
-                    <td class="px-6 py-4 font-medium text-gray-800">${r.name}</td>
-                    <td class="px-6 py-4"><span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-lg text-xs font-bold">${r.event}</span></td>
-                    <td class="px-6 py-4"><button onclick="deleteRecord(${r.id})" class="text-red-400 hover:text-red-600 transition">刪除</button></td>
-                </tr>
-            `).join('');
+        detailBody.innerHTML = registrations.sort((a,b) => a.className.localeCompare(b.className, undefined, {numeric: true}))
+            .map(r => `<tr class="hover:bg-gray-50"><td class="px-6 py-4 font-bold text-indigo-900">${r.className}</td><td class="px-6 py-4">${r.seat}</td><td class="px-6 py-4">${r.name}</td><td class="px-6 py-4"><span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded text-xs">${r.event}</span></td><td class="px-6 py-4"><button onclick="deleteRecord(${r.id})" class="text-red-400 text-sm">刪除</button></td></tr>`).join('');
 
         eventStatsBody.innerHTML = events.map(evt => {
             const count = registrations.filter(r => r.event === evt).length;
-            const percent = (count / MAX_LIMIT) * 100;
-            const barColor = count >= MAX_LIMIT ? 'bg-red-500' : 'bg-indigo-600';
-            return `
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="font-bold text-gray-700">${evt}</span>
-                        <span class="text-xs font-black ${count >= MAX_LIMIT ? 'text-red-500' : 'text-indigo-600'}">${count} / ${MAX_LIMIT}</span>
-                    </div>
-                    <div class="w-full bg-gray-100 rounded-full h-2.5">
-                        <div class="${barColor} h-2.5 rounded-full transition-all duration-500" style="width: ${percent}%"></div>
-                    </div>
-                </div>
-            `;
+            const percent = Math.min((count / MAX_LIMIT) * 100, 100);
+            return `<div class="bg-white p-5 rounded-2xl border shadow-sm">
+                <div class="flex justify-between mb-2"><b>${evt}</b><span class="text-sm font-bold">${count}/${MAX_LIMIT}</span></div>
+                <div class="w-full bg-gray-100 h-2 rounded-full"><div class="bg-indigo-600 h-2 rounded-full transition-all" style="width:${percent}%"></div></div>
+            </div>`;
         }).join('');
-
-        const reged = [...new Set(registrations.map(r => r.className))];
-        const missing = allClasses.filter(c => !reged.includes(c));
-        document.getElementById('unregisteredClasses').innerText = missing.length > 0 ? missing.join(', ') : '所有班級皆已報名！';
     }
 
     function deleteRecord(id) {
-        if(confirm("確定要刪除這筆報名資料嗎？")) {
+        if(confirm("確定刪除此筆資料？")) {
             registrations = registrations.filter(r => r.id !== id);
             localStorage.setItem('registrations', JSON.stringify(registrations));
             updateDashboard();
@@ -270,18 +223,15 @@
     }
 
     function exportToCSV() {
-        if (registrations.length === 0) return alert("目前沒有資料。");
         let csv = "\ufeff班級,座號,姓名,項目\n" + registrations.map(r => `${r.className},${r.seat},${r.name},${r.event}`).join("\n");
-        const blob = new Blob([csv], { type: 'text/csv' });
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `比賽報名名單_${new Date().getMonth()+1}${new Date().getDate()}.csv`;
+        a.download = `報名名單_${new Date().toLocaleDateString()}.csv`;
         a.click();
     }
 
-    function clearData() { if(confirm("確定清空？")) { localStorage.clear(); location.reload(); } }
-
-    updateDashboard();
+    function clearData() { if(confirm("確定清空所有資料？")) { localStorage.clear(); location.reload(); } }
 </script>
 
 </body>
